@@ -1,265 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Varshith's Portfolio</title>
-<style>
-  /* Color Palette */
-  :root {
-    --blue-primary: #60B5FF;
-    --blue-light: #AFDDFF;
-    --off-white: #FFFEEC;
-    --green-pale: #DBFF91;
-    --orange: #FF9149;
-    --dark-text: #222;
-    --gray-text: #555;
-  }
-
-  /* Reset */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--off-white);
-    color: var(--dark-text);
-    line-height: 1.6;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-
-  /* Navigation */
-  nav {
-    background: var(--blue-primary);
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    padding: 15px 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-  }
-
-  nav a {
-    color: var(--off-white);
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 1.1rem;
-    padding: 6px 10px;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-  }
-
-  nav a:hover {
-    background-color: var(--blue-light);
-    color: var(--dark-text);
-  }
-
-  /* Header */
-  header {
-    text-align: center;
-    padding: 60px 20px 30px;
-  }
-
-  header h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
-    color: var(--blue-primary);
-  }
-
-  header p {
-    font-size: 1.3rem;
-    color: var(--gray-text);
-    font-weight: 500;
-  }
-
-  /* Sections */
-  section {
-    margin: 50px 0;
-  }
-
-  section h2 {
-    border-bottom: 3px solid var(--orange);
-    padding-bottom: 10px;
-    margin-bottom: 25px;
-    color: var(--orange);
-    font-weight: 700;
-    font-size: 2rem;
-  }
-
-  /* Skills */
-  ul.skills {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: center;
-  }
-
-  ul.skills li {
-    background-color: var(--green-pale);
-    color: var(--dark-text);
-    font-weight: 700;
-    font-size: 1rem;
-    padding: 12px 20px;
-    border-radius: 30px;
-    box-shadow: 0 4px 8px rgba(27, 51, 21, 0.15);
-    transition: transform 0.2s ease;
-    cursor: default;
-  }
-
-  ul.skills li:hover {
-    transform: scale(1.05);
-  }
-
-  /* Projects */
-  .projects {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .project {
-    background-color: var(--off-white);
-    box-shadow: 0 4px 12px rgba(96, 181, 255, 0.25);
-    border-left: 8px solid var(--blue-primary);
-    padding: 25px 30px;
-    border-radius: 12px;
-    transition: box-shadow 0.3s ease;
-  }
-
-  .project:hover {
-    box-shadow: 0 8px 20px rgba(96, 181, 255, 0.5);
-  }
-
-  .project h3 {
-    color: var(--blue-primary);
-    margin-bottom: 10px;
-    font-weight: 800;
-    font-size: 1.6rem;
-  }
-
-  .project p {
-    font-size: 1rem;
-    color: var(--gray-text);
-    margin-bottom: 15px;
-  }
-
-  .project a {
-    display: inline-block;
-    background-color: var(--orange);
-    color: var(--off-white);
-    font-weight: 700;
-    padding: 10px 22px;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-  }
-
-  .project a:hover {
-    background-color: #e57a39;
-  }
-
-  /* Contact */
-  .contact p {
-    font-size: 1.1rem;
-    margin: 12px 0;
-    text-align: center;
-  }
-
-  .contact a {
-    color: var(--blue-primary);
-    font-weight: 700;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-
-  .contact a:hover {
-    color: var(--orange);
-  }
-
-  /* Footer */
-  footer {
-    text-align: center;
-    color: var(--gray-text);
-    font-size: 0.9rem;
-    padding: 25px 10px;
-  }
-
-  /* Responsive */
-  @media (max-width: 650px) {
-    ul.skills {
-      justify-content: center;
-    }
-    nav {
-      gap: 18px;
-    }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Varshith | Portfolio</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="skills.html">Skills</a>
+    <a href="projects.html">Projects</a>
+    <a href="contact.html">Contact</a>
+  </nav>
 
-<nav>
-  <a href="#about">About</a>
-  <a href="#skills">Skills</a>
-  <a href="#projects">Projects</a>
-  <a href="#contact">Contact</a>
-</nav>
+  <div class="container">
+    <h1>Hey, I'm Varshith 👋</h1>
+    <p>A creative problem solver, coder, and tech enthusiast. I love building modern web tools and automations that make life easier.</p>
 
-<header>
-  <h1>Varshith</h1>
-  <p>Passionate Developer | Python, Web Programming & Automation</p>
-</header>
-
-<section id="about">
-  <h2>About Me</h2>
-  <p>Hello! I’m Varshith, a computer science student and freelance developer. I specialize in creating clean, efficient code and helping clients automate tasks and build responsive websites.</p>
-</section>
-
-<section id="skills">
-  <h2>Skills</h2>
-  <ul class="skills">
-    <li>Python</li>
-    <li>JavaScript</li>
-    <li>HTML & CSS</li>
-    <li>Automation</li>
-    <li>Web Development</li>
-  </ul>
-</section>
-
-<section id="projects">
-  <h2>Projects</h2>
-
-  <div class="project">
-    <h3>Automated Data Scraper</h3>
-    <p>Python script that collects and organizes data from websites automatically to save time and effort.</p>
-    <a href="https://github.com/varshith-dev/data-scraper" target="_blank" rel="noopener">View on GitHub</a>
+    <div class="card">
+      <h2>What I Do</h2>
+      <p>✨ Web Development<br>
+         ⚙️ Automation Projects<br>
+         📦 GitHub Open Source<br>
+         🎯 Freelancing on Fiverr as <strong>Nxt_codes</strong></p>
+    </div>
   </div>
 
-  <div class="project">
-    <h3>Personal Portfolio Website</h3>
-    <p>A responsive portfolio website built with HTML, CSS, and JavaScript to showcase my work and skills.</p>
-    <a href="https://varshith-dev.github.io" target="_blank" rel="noopener">Visit Website</a>
-  </div>
-
-</section>
-
-<section id="contact">
-  <h2>Contact Me</h2>
-  <p>Email: <a href="mailto:varshith.code@gmail.coml">Gmail</a></p>
-  <p>LinkedIn: <a href="https://linkedin.com/in/varshith-dev" target="_blank" rel="noopener">linkedin</a></p>
-  <p>Fiverr: <a href="https://fiverr.com/Nxt_codes" target="_blank" rel="noopener">fiverr</a></p>
-</section>
-
-<footer>
-  <p>Designed & Developed By Varshith</p>
-</footer>
-
+  <footer>
+    © 2025 Varshith | Built with ❤️ and VS Code
+  </footer>
 </body>
 </html>
