@@ -4,32 +4,167 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Varshith | Portfolio</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Fira Code', monospace;
+      background-color: #0d1117;
+      color: #c9d1d9;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+    header { background: #161b22; padding: 1rem 2rem; position: sticky; top: 0; z-index: 10; }
+    nav { display: flex; justify-content: space-between; align-items: center; }
+    nav h1 { color: #58a6ff; }
+    nav ul { display: flex; list-style: none; }
+    nav ul li { margin-left: 1.5rem; }
+    nav ul li a { color: #c9d1d9; text-decoration: none; transition: color 0.3s ease; }
+    nav ul li a:hover { color: #58a6ff; }
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(180deg, #0d1117, #161b22);
+    }
+    .hero .highlight { color: #58a6ff; }
+    .btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      background: #238636;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+    .btn:hover { background: #2ea043; }
+    .container { padding: 2rem; max-width: 900px; margin: auto; opacity: 0; transform: translateY(50px); transition: all 0.8s ease; }
+    .show { opacity: 1; transform: translateY(0); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+    .skills-grid span {
+      background: #161b22;
+      padding: 0.5rem;
+      border-radius: 5px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .skills-grid span:hover { transform: scale(1.05); }
+    .project-grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+    .project-card {
+      background: #161b22;
+      padding: 1rem;
+      border-radius: 8px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
+    }
+    .project-card a {
+      color: #58a6ff;
+      text-decoration: none;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #161b22;
+      margin-top: 2rem;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
 </head>
 <body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="skills.html">Skills</a>
-    <a href="projects.html">Projects</a>
-    <a href="contact.html">Contact</a>
-  </nav>
+  <header>
+    <nav>
+      <h1>&lt;Varshith.Dev /&gt;</h1>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <div class="container">
-    <h1>Hey, I'm Varshith 👋</h1>
-    <p>A creative problem solver, coder, and tech enthusiast. I love building modern web tools and automations that make life easier.</p>
+  <section class="hero">
+    <h2>Hello, I'm <span class="highlight">Varshith</span> 👋</h2>
+    <p>Aspiring Software Engineer | Web Developer | Tech Enthusiast</p>
+    <a href="#projects" class="btn">View My Work</a>
+  </section>
 
-    <div class="card">
-      <h2>What I Do</h2>
-      <p>✨ Web Development<br>
-         ⚙️ Automation Projects<br>
-         📦 GitHub Open Source<br>
-         🎯 Freelancing on Fiverr as <strong>Nxt_codes</strong></p>
+  <section id="about" class="container">
+    <h2>About Me</h2>
+    <p>
+      I’m a Computer Science student passionate about building modern, efficient, and visually engaging web applications.
+      Skilled in HTML, CSS, JavaScript, and Firebase, I love turning ideas into interactive experiences.
+    </p>
+  </section>
+
+  <section id="skills" class="container">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <span>💻 HTML</span>
+      <span>🎨 CSS</span>
+      <span>⚡ JavaScript</span>
+      <span>🔥 Firebase</span>
+      <span>🌐 Git/GitHub</span>
+      <span>📱 Responsive Design</span>
     </div>
-  </div>
+  </section>
+
+  <section id="projects" class="container">
+    <h2>Projects</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <h3>TRUVGO Platform</h3>
+        <p>News, movies, and college listing platform with live search & dark mode.</p>
+        <a href="#" target="_blank">View Project</a>
+      </div>
+      <div class="project-card">
+        <h3>User Tracking System</h3>
+        <p>Firebase-powered user analytics with geolocation and activity history.</p>
+        <a href="#" target="_blank">View Project</a>
+      </div>
+      <div class="project-card">
+        <h3>Portfolio Website</h3>
+        <p>Modern personal portfolio showcasing my skills and projects.</p>
+        <a href="#" target="_blank">View Project</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="container">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:your-email@example.com">your-email@example.com</a></p>
+    <p>LinkedIn: <a href="https://linkedin.com/in/varshith-dev" target="_blank">linkedin.com/in/varshith-dev</a></p>
+    <p>GitHub: <a href="https://github.com/varshith-dev" target="_blank">github.com/varshith-dev</a></p>
+  </section>
 
   <footer>
-    © 2025 Varshith | Built with ❤️ and VS Code
+    <p>© 2025 Varshith. Built with ❤️ & code.</p>
   </footer>
+
+  <script>
+    // Fade-in animation when section comes into view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.container').forEach(section => {
+      observer.observe(section);
+    });
+  </script>
 </body>
 </html>
