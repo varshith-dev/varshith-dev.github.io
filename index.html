@@ -1,170 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Varshith | Portfolio</title>
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Varshith Dev - Portfolio</title>
+<style>
+    /* Reset & Fonts */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Fira Code', monospace;
-      background-color: #0d1117;
-      color: #c9d1d9;
-      line-height: 1.6;
-      scroll-behavior: smooth;
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #0a0f1e;
+        color: #fff;
+        overflow-x: hidden;
     }
-    header { background: #161b22; padding: 1rem 2rem; position: sticky; top: 0; z-index: 10; }
-    nav { display: flex; justify-content: space-between; align-items: center; }
-    nav h1 { color: #58a6ff; }
-    nav ul { display: flex; list-style: none; }
-    nav ul li { margin-left: 1.5rem; }
-    nav ul li a { color: #c9d1d9; text-decoration: none; transition: color 0.3s ease; }
-    nav ul li a:hover { color: #58a6ff; }
-    .hero {
-      text-align: center;
-      padding: 4rem 2rem;
-      background: linear-gradient(180deg, #0d1117, #161b22);
+
+    /* Particle Background */
+    #particles-js {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        top: 0; left: 0;
     }
-    .hero .highlight { color: #58a6ff; }
-    .btn {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.6rem 1.2rem;
-      background: #238636;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: background 0.3s ease;
+
+    /* Navbar */
+    nav {
+        position: fixed;
+        width: 100%;
+        padding: 15px 40px;
+        background: rgba(10, 15, 30, 0.8);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        backdrop-filter: blur(6px);
+        z-index: 10;
     }
-    .btn:hover { background: #2ea043; }
-    .container { padding: 2rem; max-width: 900px; margin: auto; opacity: 0; transform: translateY(50px); transition: all 0.8s ease; }
-    .show { opacity: 1; transform: translateY(0); }
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1rem;
+    nav a {
+        color: #0ff;
+        text-decoration: none;
+        margin-left: 20px;
+        transition: 0.3s;
     }
-    .skills-grid span {
-      background: #161b22;
-      padding: 0.5rem;
-      border-radius: 5px;
-      text-align: center;
-      transition: transform 0.3s ease;
+    nav a:hover { color: #fff; text-shadow: 0 0 10px #0ff; }
+
+    /* Hero Section */
+    header {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
     }
-    .skills-grid span:hover { transform: scale(1.05); }
-    .project-grid {
-      display: grid;
-      gap: 1.5rem;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    header h1 {
+        font-size: 3rem;
+        color: #0ff;
+        text-shadow: 0 0 15px #0ff;
     }
-    .project-card {
-      background: #161b22;
-      padding: 1rem;
-      border-radius: 8px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .typing {
+        font-size: 1.2rem;
+        margin-top: 10px;
+        color: #ccc;
     }
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
+
+    /* Sections */
+    section {
+        padding: 80px 20px;
+        max-width: 1000px;
+        margin: auto;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
-    .project-card a {
-      color: #58a6ff;
-      text-decoration: none;
+    section.visible {
+        opacity: 1;
+        transform: translateY(0);
     }
+    h2 {
+        font-size: 2rem;
+        color: #0ff;
+        margin-bottom: 20px;
+        text-shadow: 0 0 10px #0ff;
+    }
+
+    /* Project Cards */
+    .projects {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    .card {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 20px;
+        border-radius: 10px;
+        transition: 0.3s;
+        border: 1px solid rgba(0,255,255,0.3);
+    }
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px #0ff;
+    }
+
+    /* Contact */
+    .contact a {
+        display: inline-block;
+        margin: 10px;
+        padding: 10px 20px;
+        border: 1px solid #0ff;
+        color: #0ff;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+    .contact a:hover {
+        background: #0ff;
+        color: #000;
+        box-shadow: 0 0 15px #0ff;
+    }
+
+    /* Footer */
     footer {
-      text-align: center;
-      padding: 1rem;
-      background: #161b22;
-      margin-top: 2rem;
+        text-align: center;
+        padding: 20px;
+        background: rgba(0,0,0,0.5);
+        font-size: 0.9rem;
     }
-  </style>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+</style>
 </head>
 <body>
-  <header>
-    <nav>
-      <h1>&lt;Varshith.Dev /&gt;</h1>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <section class="hero">
-    <h2>Hello, I'm <span class="highlight">Varshith</span> 👋</h2>
-    <p>Aspiring Software Engineer | Web Developer | Tech Enthusiast</p>
-    <a href="#projects" class="btn">View My Work</a>
-  </section>
+<!-- Particle Background -->
+<div id="particles-js"></div>
 
-  <section id="about" class="container">
+<!-- Navbar -->
+<nav>
+    <div class="logo">Varshith Dev</div>
+    <div>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </div>
+</nav>
+
+<!-- Hero -->
+<header>
+    <h1>Hi, I'm Varshith</h1>
+    <div class="typing" id="typing"></div>
+</header>
+
+<!-- About -->
+<section id="about">
     <h2>About Me</h2>
-    <p>
-      I’m a Computer Science student passionate about building modern, efficient, and visually engaging web applications.
-      Skilled in HTML, CSS, JavaScript, and Firebase, I love turning ideas into interactive experiences.
-    </p>
-  </section>
+    <p>I’m a passionate developer with expertise in creating innovative solutions using modern web technologies. My goal is to craft high-quality, user-friendly, and visually appealing applications that solve real-world problems.</p>
+</section>
 
-  <section id="skills" class="container">
-    <h2>Skills</h2>
-    <div class="skills-grid">
-      <span>💻 HTML</span>
-      <span>🎨 CSS</span>
-      <span>⚡ JavaScript</span>
-      <span>🔥 Firebase</span>
-      <span>🌐 Git/GitHub</span>
-      <span>📱 Responsive Design</span>
-    </div>
-  </section>
-
-  <section id="projects" class="container">
+<!-- Projects -->
+<section id="projects">
     <h2>Projects</h2>
-    <div class="project-grid">
-      <div class="project-card">
-        <h3>TRUVGO Platform</h3>
-        <p>News, movies, and college listing platform with live search & dark mode.</p>
-        <a href="#" target="_blank">View Project</a>
-      </div>
-      <div class="project-card">
-        <h3>User Tracking System</h3>
-        <p>Firebase-powered user analytics with geolocation and activity history.</p>
-        <a href="#" target="_blank">View Project</a>
-      </div>
-      <div class="project-card">
-        <h3>Portfolio Website</h3>
-        <p>Modern personal portfolio showcasing my skills and projects.</p>
-        <a href="#" target="_blank">View Project</a>
-      </div>
+    <div class="projects">
+        <div class="card">🚀 Project One - A modern web app with full responsive design.</div>
+        <div class="card">⚡ Project Two - Real-time data visualization dashboard.</div>
+        <div class="card">💡 Project Three - AI-powered chatbot assistant.</div>
     </div>
-  </section>
+</section>
 
-  <section id="contact" class="container">
+<!-- Contact -->
+<section id="contact" class="contact">
     <h2>Contact</h2>
-    <p>Email: <a href="mailto:your-email@example.com">your-email@example.com</a></p>
-    <p>LinkedIn: <a href="https://linkedin.com/in/varshith-dev" target="_blank">linkedin.com/in/varshith-dev</a></p>
-    <p>GitHub: <a href="https://github.com/varshith-dev" target="_blank">github.com/varshith-dev</a></p>
-  </section>
+    <a href="mailto:your@email.com">Email Me</a>
+    <a href="https://linkedin.com/in/varshith-dev" target="_blank">LinkedIn</a>
+    <a href="https://github.com/" target="_blank">GitHub</a>
+</section>
 
-  <footer>
-    <p>© 2025 Varshith. Built with ❤️ & code.</p>
-  </footer>
+<!-- Footer -->
+<footer>
+    &copy; 2025 Varshith Dev. All Rights Reserved.
+</footer>
 
-  <script>
-    // Fade-in animation when section comes into view
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show');
-          observer.unobserve(entry.target);
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+    /* Particle Background */
+    particlesJS("particles-js", {
+        "particles": {
+            "number": { "value": 80 },
+            "color": { "value": "#0ff" },
+            "shape": { "type": "circle" },
+            "opacity": { "value": 0.5 },
+            "size": { "value": 3 },
+            "move": { "enable": true, "speed": 1 }
         }
-      });
-    }, { threshold: 0.2 });
-
-    document.querySelectorAll('.container').forEach(section => {
-      observer.observe(section);
     });
-  </script>
+
+    /* Typing Effect */
+    const typingElement = document.getElementById("typing");
+    const words = ["Full Stack Developer", "UI/UX Enthusiast", "Tech Innovator"];
+    let wordIndex = 0, charIndex = 0;
+    function type() {
+        if (charIndex < words[wordIndex].length) {
+            typingElement.innerHTML += words[wordIndex][charIndex];
+            charIndex++;
+            setTimeout(type, 100);
+        } else {
+            setTimeout(erase, 1500);
+        }
+    }
+    function erase() {
+        if (charIndex > 0) {
+            typingElement.innerHTML = words[wordIndex].substring(0, charIndex - 1);
+            charIndex--;
+            setTimeout(erase, 50);
+        } else {
+            wordIndex = (wordIndex + 1) % words.length;
+            setTimeout(type, 200);
+        }
+    }
+    document.addEventListener("DOMContentLoaded", () => type());
+
+    /* Section Reveal on Scroll */
+    const sections = document.querySelectorAll("section");
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+    }, { threshold: 0.2 });
+    sections.forEach(section => observer.observe(section));
+</script>
 </body>
 </html>
