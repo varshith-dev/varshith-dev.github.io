@@ -1,230 +1,65 @@
-<!DOCTYPE html>
+<!-- index.html -->
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Varshith Dev - Portfolio</title>
-<style>
-    /* Reset & Fonts */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-        font-family: 'Segoe UI', sans-serif;
-        background-color: #0a0f1e;
-        color: #fff;
-        overflow-x: hidden;
-    }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nabha Digital Learning Hub</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <script type="module">
+    import { auth } from "./firebase.js";
+    import { GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+    import { loadLocale, initAuthGuard } from "./app.js";
 
-    /* Particle Background */
-    #particles-js {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        top: 0; left: 0;
-    }
-
-    /* Navbar */
-    nav {
-        position: fixed;
-        width: 100%;
-        padding: 15px 40px;
-        background: rgba(10, 15, 30, 0.8);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        backdrop-filter: blur(6px);
-        z-index: 10;
-    }
-    nav a {
-        color: #0ff;
-        text-decoration: none;
-        margin-left: 20px;
-        transition: 0.3s;
-    }
-    nav a:hover { color: #fff; text-shadow: 0 0 10px #0ff; }
-
-    /* Hero Section */
-    header {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-    header h1 {
-        font-size: 3rem;
-        color: #0ff;
-        text-shadow: 0 0 15px #0ff;
-    }
-    .typing {
-        font-size: 1.2rem;
-        margin-top: 10px;
-        color: #ccc;
-    }
-
-    /* Sections */
-    section {
-        padding: 80px 20px;
-        max-width: 1000px;
-        margin: auto;
-        opacity: 0;
-        transform: translateY(50px);
-        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-    section.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    h2 {
-        font-size: 2rem;
-        color: #0ff;
-        margin-bottom: 20px;
-        text-shadow: 0 0 10px #0ff;
-    }
-
-    /* Project Cards */
-    .projects {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-    }
-    .card {
-        background: rgba(255, 255, 255, 0.05);
-        padding: 20px;
-        border-radius: 10px;
-        transition: 0.3s;
-        border: 1px solid rgba(0,255,255,0.3);
-    }
-    .card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 20px #0ff;
-    }
-
-    /* Contact */
-    .contact a {
-        display: inline-block;
-        margin: 10px;
-        padding: 10px 20px;
-        border: 1px solid #0ff;
-        color: #0ff;
-        border-radius: 5px;
-        text-decoration: none;
-        transition: 0.3s;
-    }
-    .contact a:hover {
-        background: #0ff;
-        color: #000;
-        box-shadow: 0 0 15px #0ff;
-    }
-
-    /* Footer */
-    footer {
-        text-align: center;
-        padding: 20px;
-        background: rgba(0,0,0,0.5);
-        font-size: 0.9rem;
-    }
-</style>
-</head>
-<body>
-
-<!-- Particle Background -->
-<div id="particles-js"></div>
-
-<!-- Navbar -->
-<nav>
-    <div class="logo">Varshith Dev</div>
-    <div>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-    </div>
-</nav>
-
-<!-- Hero -->
-<header>
-    <h1>Hi, I'm Varshith</h1>
-    <div class="typing" id="typing"></div>
-</header>
-
-<!-- About -->
-<section id="about">
-    <h2>About Me</h2>
-    <p>I’m a passionate developer with expertise in creating innovative solutions using modern web technologies. My goal is to craft high-quality, user-friendly, and visually appealing applications that solve real-world problems.</p>
-</section>
-
-<!-- Projects -->
-<section id="projects">
-    <h2>Projects</h2>
-    <div class="projects">
-        <div class="card">🚀 Project One - A modern web app with full responsive design.</div>
-        <div class="card">⚡ Project Two - Real-time data visualization dashboard.</div>
-        <div class="card">💡 Project Three - AI-powered chatbot assistant.</div>
-    </div>
-</section>
-
-<!-- Contact -->
-<section id="contact" class="contact">
-    <h2>Contact</h2>
-    <a href="mailto:your@email.com">Email Me</a>
-    <a href="https://linkedin.com/in/varshith-dev" target="_blank">LinkedIn</a>
-    <a href="https://github.com/" target="_blank">GitHub</a>
-</section>
-
-<!-- Footer -->
-<footer>
-    &copy; 2025 Varshith Dev. All Rights Reserved.
-</footer>
-
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<script>
-    /* Particle Background */
-    particlesJS("particles-js", {
-        "particles": {
-            "number": { "value": 80 },
-            "color": { "value": "#0ff" },
-            "shape": { "type": "circle" },
-            "opacity": { "value": 0.5 },
-            "size": { "value": 3 },
-            "move": { "enable": true, "speed": 1 }
-        }
+    window.addEventListener("load", async () => {
+      await loadLocale("en");
+      initAuthGuard({ protectedPages: ["student.html","teacher.html","admin.html"] });
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        // already replaced by loadLocale
+      });
     });
 
-    /* Typing Effect */
-    const typingElement = document.getElementById("typing");
-    const words = ["Full Stack Developer", "UI/UX Enthusiast", "Tech Innovator"];
-    let wordIndex = 0, charIndex = 0;
-    function type() {
-        if (charIndex < words[wordIndex].length) {
-            typingElement.innerHTML += words[wordIndex][charIndex];
-            charIndex++;
-            setTimeout(type, 100);
-        } else {
-            setTimeout(erase, 1500);
+    window.signInWithGoogle = async () => {
+      try {
+        const provider = new GoogleAuthProvider();
+        provider.setCustomParameters({ prompt: "select_account" });
+        const result = await signInWithPopup(auth, provider);
+        const email = result.user?.email || "";
+        if (!email.toLowerCase().endsWith("@gmail.com")) {
+          alert("Only Gmail accounts allowed. Signing out.");
+          await auth.signOut();
+          return;
         }
+        // onAuthStateChanged in app.js will redirect
+      } catch (e) {
+        alert("Sign in failed: " + e.message);
+      }
     }
-    function erase() {
-        if (charIndex > 0) {
-            typingElement.innerHTML = words[wordIndex].substring(0, charIndex - 1);
-            charIndex--;
-            setTimeout(erase, 50);
-        } else {
-            wordIndex = (wordIndex + 1) % words.length;
-            setTimeout(type, 200);
-        }
-    }
-    document.addEventListener("DOMContentLoaded", () => type());
+  </script>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo" data-i18n="app_title">Nabha Digital Learning Hub</div>
+      <div class="badge small">Gmail-only</div>
+    </header>
 
-    /* Section Reveal on Scroll */
-    const sections = document.querySelectorAll("section");
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add("visible");
-        });
-    }, { threshold: 0.2 });
-    sections.forEach(section => observer.observe(section));
-</script>
+    <main class="grid grid-2">
+      <section class="card">
+        <h3 data-i18n="login_google">Sign in with Google (Gmail only)</h3>
+        <p class="small">Use your Gmail account. Teacher/Admin rights are set by admin via admin dashboard.</p>
+        <div class="top-actions" style="margin-top:12px">
+          <button onclick="signInWithGoogle()" style="background:var(--accent);color:#042133;padding:10px 14px;border-radius:10px">Sign in with Google</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h4 class="small">Why Gmail-only?</h4>
+        <p class="small">Simplifies sign-in, avoids phone OTP, and ensures accounts are real Google accounts.</p>
+      </section>
+    </main>
+
+    <footer style="margin-top:14px" class="small">Built for rural schools in Nabha — teacher content, offline-ready.</footer>
+  </div>
 </body>
 </html>
