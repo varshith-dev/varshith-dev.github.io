@@ -1,0 +1,18 @@
+# Enable Rewrite Engine
+RewriteEngine On
+
+# Prevent rewrite for actual files and directories
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# Rewrite URLs to remove .html extension
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([^\.]+)$ $1.html [L]
+
+# Custom error pages (now in root directory)
+ErrorDocument 404 /404.html
+ErrorDocument 401 /401.html
+ErrorDocument 500 /500.html
+
+# Disable directory listing
+Options -Indexes
