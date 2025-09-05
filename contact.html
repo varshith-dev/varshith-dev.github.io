@@ -1,0 +1,67 @@
+<!DOCTYPE:html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TRUVGO — Request a Website</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav>
+    <div class="container row">
+      <div class="logo">
+        <div class="logo-mark"></div>
+        <span>TRUVGO</span>
+      </div>
+      <div class="navlinks">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="contact.html" class="btn small active">Request a Website</a>
+        <a href="admin.html" class="tag">Admin</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="container">
+    <h2 style="text-align: center;">Request a website</h2>
+    <p class="lead" style="text-align: center;">Tell us about your business. We’ll review and get back with a clear plan & quote.</p>
+    <form id="requestForm" style="max-width: 600px; margin-inline: auto;">
+      <div class="two">
+        <div>
+          <label>Business name*</label>
+          <input required name="businessName" placeholder="e.g., Bluebell Cafe" />
+        </div>
+        <div>
+          <label>Contact person*</label>
+          <input required name="contactPerson" placeholder="Your full name" />
+        </div>
+      </div>
+      <div>
+        <label>Email*</label>
+        <input type="email" required name="email" placeholder="you@company.com" />
+      </div>
+      <div>
+        <label>Describe your project*</label>
+        <textarea required name="details" placeholder="What do you do? What should the site achieve? Any examples you like?"></textarea>
+      </div>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <button class="btn" type="submit">Submit request</button>
+        <span id="reqStatus" style="color: var(--muted);"></span>
+      </div>
+    </form>
+  </section>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> TRUVGO. All rights reserved.
+    </div>
+  </footer>
+
+  <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
