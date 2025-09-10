@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vividly Events | Check Status</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Arial:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <span class="vividly">VIVIDLY</span><span class="events">EVENTS</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#portfolio">Portfolio</a></li>
+                <li><a href="photo.html">Gallery</a></li>
+                <li><a href="index.html#clients">Clients</a></li>
+                <li><a href="index.html#testimonials">Testimonials</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="login-section">
+            <div class="container">
+                <h2>Check Your Application Status</h2>
+                <div class="login-form-container">
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="eventId">Enter your Event ID</label>
+                            <input type="text" id="eventId" name="eventId" required>
+                        </div>
+                        <div class="submit-button-container">
+                            <button type="submit" class="cta-button">Check Status</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col footer-branding">
+                    <h3 class="footer-logo">VIVIDLYEVENTS</h3>
+                    <p>Delivering exceptional events with precision and passion. </p>
+                    <p>&copy; 2025 Vividly Events. All Rights Reserved.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#services">Our Services</a></li>
+                        <li><a href="index.html#portfolio">Portfolio</a></li>
+                        <li><a href="photo.html">Gallery</a></li>
+                        <li><a href="index.html#testimonials">Testimonials</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const eventId = document.getElementById('eventId').value.trim();
+            if (eventId) {
+                window.location.href = `dash.html?id=${eventId}`;
+            }
+        });
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
