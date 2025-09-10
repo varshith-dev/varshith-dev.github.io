@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VIVIDLY – Updates Underway</title>
+  <style>
+    /* Reset & Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      background-color: #000; /* Dark base */
+      color: #f5f5f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background image with fade */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+        url('https://www.youwemedia.com/wp-content/uploads/2023/07/Set-2_11zon-300x200.jpg') center/cover no-repeat;
+      opacity: 1.5; /* transparency control */
+      z-index: 0;
+    }
+
+    /* Container */
+    .container {
+      max-width: 700px;
+      width: 100%;
+      position: relative;
+      z-index: 1; /* keep content above banner */
+      animation: fadeIn 1.5s ease;
+    }
+
+    /* Logo */
+    .logo {
+      width: 150px;
+      margin: 0 auto 20px;
+    }
+    .logo img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Headings */
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+    p {
+      font-size: 1.1rem;
+      color: #a1a1a6;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    /* Highlighted launch time */
+    .highlight {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #f5f5f7;
+      margin-top: 10px;
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+      .logo {
+        width: 90px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Logo -->
+    <div class="logo">
+      <img src="https://res.cloudinary.com/doqvgtd5s/image/upload/v1757517187/Adobe_Express_-_file_1_f7ankc.png" alt="VIVIDLY Logo">
+    </div>
+
+    <h1>Updates Underway</h1>
+    <p>Something exciting is coming your way. Our site will be live soon with a whole new experience.</p>
+    <div class="highlight"><!--We go public today at --><strong> <!--TIME HERE--></strong></div>
+  </div>
+</body>
+</html>
