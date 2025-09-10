@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vividly Events | Dashboard</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="dash.css">
+    <link href="https://fonts.googleapis.com/css2?family=Arial:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <span class="vividly">VIVIDLY</span><span class="events">EVENTS</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#portfolio">Portfolio</a></li>
+                <li><a href="photo.html">Gallery</a></li>
+                <li><a href="index.html#clients">Clients</a></li>
+                <li><a href="index.html#testimonials">Testimonials</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="dashboard-section">
+            <div class="container">
+                <h2>Your Application Status</h2>
+                <div id="statusContainer" class="status-container">
+                    <p id="loading-message">Loading registration data...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col footer-branding">
+                    <h3 class="footer-logo">VIVIDLYEVENTS</h3>
+                    <p>Delivering exceptional events with precision and passion. </p>
+                    <p>&copy; 2025 Vividly Events. All Rights Reserved.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                         <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#services">Our Services</a></li>
+                        <li><a href="index.html#portfolio">Portfolio</a></li>
+                        <li><a href="photo.html">Gallery</a></li>
+                        <li><a href="register.html">Register</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+        import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCGtRmoR3g0L-PwP3KwIJ7b9l7-dSvXrZk",
+            authDomain: "vividy-1fec0.firebaseapp.com",
+            projectId: "vividy-1fec0",
+            storageBucket: "vividy-1fec0.firebasestorage.app",
+            messagingSenderId: "696004886445",
+            appId: "1:696004886445:web:5fa6290fe574288d326b24",
+            measurementId: "G-S1GJ09L8QV"
+        };
+        const __app_id = "vividy-1fec0";
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        
+        async function authenticate() {
+            try {
+                await signInAnonymously(auth);
+                const urlParams = new URLSearchParams(window.location.search);
+                const eventId = urlParams.get('id');
+                if (eventId) {
+                    fetchRegistrationStatus(eventId);
+                } else {
+                    document.getElementById('loading-message').textContent = "No Event ID provided. Please go back and enter it.";
+                }
+            } catch (error) {
+                console.error("Error signing in anonymously:", error);
+            }
+        }
+        authenticate();
+
+        async function fetchRegistrationStatus(eventId) {
+            const statusContainer = document.getElementById('statusContainer');
+            const eventRef = collection(db, `/artifacts/${__app_id}/users/${auth.currentUser.uid}/events`);
+            const q = query(eventRef, where("eventId", "==", eventId));
+
+            try {
+                const querySnapshot = await getDocs(q);
+                if (querySnapshot.empty) {
+                    statusContainer.innerHTML = `
+                        <p class="not-found-message">Event ID "${eventId}" not found. Please check your ID and try again.</p>
+                    `;
+                } else {
+                    const docData = querySnapshot.docs[0].data();
+                    statusContainer.innerHTML = `
+                        <h3>Details for Event ID: <span class="accent-color">${docData.eventId}</span></h3>
+                        <div class="status-card">
+                            <div class="status-details">
+                                <p><strong>Event:</strong> ${docData.eventSelect}</p>
+                                <p><strong>Registered Name:</strong> ${docData.fullName}</p>
+                                <p><strong>Company:</strong> ${docData.company}</p>
+                            </div>
+                            <div class="status-badge status-${docData.status.toLowerCase()}">
+                                <h4>Status:</h4>
+                                <h3>${docData.status.toUpperCase()}</h3>
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error("Error fetching document: ", error);
+                statusContainer.innerHTML = `<p class="error-message">Error fetching data. Please try again later.</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
