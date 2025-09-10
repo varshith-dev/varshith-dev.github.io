@@ -1,118 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VIVIDLY – Updates Underway</title>
-  <style>
-    /* Reset & Base */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-      background-color: #000; /* Dark base */
-      color: #f5f5f7;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      text-align: center;
-      padding: 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Background image with fade */
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: 
-        linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
-        url('https://www.youwemedia.com/wp-content/uploads/2023/07/Set-2_11zon-300x200.jpg') center/cover no-repeat;
-      opacity: 1.5; /* transparency control */
-      z-index: 0;
-    }
-
-    /* Container */
-    .container {
-      max-width: 700px;
-      width: 100%;
-      position: relative;
-      z-index: 1; /* keep content above banner */
-      animation: fadeIn 1.5s ease;
-    }
-
-    /* Logo */
-    .logo {
-      width: 150px;
-      margin: 0 auto 20px;
-    }
-    .logo img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    /* Headings */
-    h1 {
-      font-size: 2.2rem;
-      font-weight: 600;
-      margin-bottom: 12px;
-      letter-spacing: -0.02em;
-      color: #fff;
-    }
-    p {
-      font-size: 1.1rem;
-      color: #a1a1a6;
-      margin-bottom: 24px;
-      line-height: 1.5;
-    }
-
-    /* Highlighted launch time */
-    .highlight {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: #f5f5f7;
-      margin-top: 10px;
-    }
-
-    /* Fade-in animation */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 1.8rem;
-      }
-      p {
-        font-size: 1rem;
-      }
-      .logo {
-        width: 90px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vividly Events | Professional Event Management</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Arial:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <div class="container">
-    <!-- Logo -->
-    <div class="logo">
-      <img src="https://res.cloudinary.com/doqvgtd5s/image/upload/v1757517187/Adobe_Express_-_file_1_f7ankc.png" alt="VIVIDLY Logo">
-    </div>
 
-    <h1>Updates Underway</h1>
-    <p>Something exciting is coming your way. Our site will be live soon with a whole new experience.</p>
-    <div class="highlight">We go public today at <strong>9:40 PM</strong></div>
-  </div>
+    <header class="main-header">
+        <nav class="navbar">
+            <a href="#hero" class="logo">
+                <span class="vividly">VIVIDLY</span><span class="events">EVENTS</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#">HOME</a></li>
+                <li><a href="photo.html">PHOTO GALLERY</a></li>
+                <li><a href="#portfolio">Projects</a></li>
+                <li><a href="#process">Process</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="hero-section">
+            <video autoplay muted loop playsinline id="heroVideo">
+                <source src="https://video.wixstatic.com/video/14ff0a_95a147746380480f8f365b999e589ab1/1080p/mp4/file.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="hero-content">
+                <h1>Orchestrating Unforgettable Experiences</h1>
+                <p>Vividly Events delivers precision-engineered, high-impact events that resonate and inspire. We transform your vision into a flawlessly executed reality.</p>
+                <a href="#about" class="cta-button">Discover Our Expertise</a>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2>About Vividly Events</h2>
+                <p class="section-description">For over a decade, Vividly Events has been the trusted partner for organizations seeking to create impactful and memorable corporate events, product launches, and exclusive galas.</p>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Our firm is built on a foundation of strategic vision, meticulous planning, and unparalleled execution. We understand that every event is a critical extension of your brand, and our mission is to ensure it communicates your message with clarity and sophistication.</p>
+                        <p>We pride ourselves on our proactive approach, anticipating challenges and delivering seamless solutions. From the initial concept development to post-event analytics, our dedicated team of experts works tirelessly to manage every detail, allowing you to focus on your guests and objectives.</p>
+                        <p>Our commitment to excellence has forged long-standing relationships with industry leaders. We don't just plan events; we craft experiences that foster connections, drive engagement, and leave a lasting legacy. Partner with Vividly Events to elevate your next occasion.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://media.telanganatoday.com/wp-content/uploads/2022/05/Mahesh-Babu-breaks-down-in-tears-as-he-addresses-fans-at-SVP-event.jpg" alt="A professional team in a modern office.">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services-section">
+            <div class="container">
+                <h2>Our Core Capabilities</h2>
+                <p class="section-description">We offer a comprehensive suite of integrated services, designed to manage every facet of your event lifecycle with precision and innovative flair.</p>
+                <div class="service-grid">
+                    <div class="service-item">
+                        <i class="fas fa-bullseye"></i>
+                        <h3>Strategic Vision & Planning</h3>
+                        <p>Developing bespoke event blueprints, aligning every element with your overarching business objectives and audience engagement goals.</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-handshake"></i>
+                        <h3>Full-Service Logistics Management</h3>
+                        <p>Meticulous handling of all operational details, from venue procurement and vendor negotiation to intricate on-site coordination.</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Creative Design & Theming</h3>
+                        <p>Transforming concepts into immersive environments, crafting stunning visual narratives through innovative stage, lighting, and decor design.</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-microphone-alt"></i>
+                        <h3>Advanced Technical Production</h3>
+                        <p>Seamless integration of cutting-edge audio-visual, sound engineering, and interactive technologies for maximum impact and flawless delivery.</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-users-gear"></i>
+                        <h3>Attendee Experience Optimization</h3>
+                        <p>Designing every touchpoint to enhance guest engagement, comfort, and satisfaction, ensuring a truly memorable journey for all participants.</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-chart-pie"></i>
+                        <h3>Post-Event Analytics & ROI</h3>
+                        <p>Comprehensive data analysis and reporting to measure event success, capture key insights, and demonstrate tangible return on investment.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="portfolio-section">
+            <div class="container">
+                <h2>Featured Projects</h2>
+                <p class="section-description">A curated selection of our most successful events, showcasing our versatile expertise across diverse industries and complex requirements.</p>
+                <div class="project-card-container">
+                    <div class="project-card">
+                        <img src="https://globaltechinnovationsummit.com/wp-content/uploads/2023/05/gtis.png" alt="A busy tech summit with many attendees.">
+                        <div class="project-info">
+                            <h3>Global Tech Innovation Summit</h3>
+                            <p>An international conference featuring multiple keynote stages, interactive workshops, and a sprawling exhibition floor for over 5,000 attendees.</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="https://www.bollywoodhungama.com/wp-content/uploads/2022/12/Aryan-Khan-launches-luxury-brand-DYAVOL-to-unveil-premium-beverage-and-capsule-collection-in-2023.jpg" alt="A spotlight on a new luxury product.">
+                        <div class="project-info">
+                            <h3>Exclusive Luxury Brand Launch</h3>
+                            <p>A high-profile, immersive launch event designed to create unparalleled buzz and brand desire for a cutting-edge luxury consumer product.</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="https://bsmedia.business-standard.com/_media/bs/img/article/2023-10/14/full/20231014163135.jpg" alt="An elegant corporate awards ceremony.">
+                        <div class="project-info">
+                            <h3>Annual Corporate Excellence Awards Gala</h3>
+                            <p>An evening of sophisticated celebration, honoring industry leaders with a bespoke dining experience and world-class entertainment.</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2Dw9e5wYo1Tj31zOeB6-WJjADA5CbqzInRQ&s" alt="A modern trade show booth design.">
+                        <div class="project-info">
+                            <h3>Bespoke Trade Show Exhibition</h3>
+                            <p>Designing and managing a high-impact exhibition booth that maximized client visibility, engagement, and lead generation at a major industry trade fair.</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="https://www.undp.org/sites/g/files/zskgke326/files/styles/scaled_image_large/public/2025-04/executive_leadership_retreat_photos_copyright_c_2025_undp_africa-233.jpg?itok=Oaz10JJU" alt="An executive meeting in a scenic location.">
+                        <div class="project-info">
+                            <h3>Executive Leadership Retreat</h3>
+                            <p>Curating a focused and inspiring multi-day retreat for senior leadership, blending strategic sessions with unique team-building experiences.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="process" class="process-section">
+            <div class="container">
+                <h2>Our Collaborative Process</h2>
+                <p class="section-description">Our proven four-phase methodology ensures transparency, efficiency, and a truly collaborative partnership from initial concept to successful execution.</p>
+                <div class="process-grid">
+                    <div class="process-step">
+                        <div class="step-icon"><i class="fas fa-sitemap"></i></div>
+                        <h3>1. Conceptualization & Strategy</h3>
+                        <p>We deep-dive into your objectives, target audience, and desired outcomes to craft a strategic framework that guides every decision.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon"><i class="fas fa-drafting-compass"></i></div>
+                        <h3>2. Detailed Design & Planning</h3>
+                        <p>Translating strategy into tangible plans: venue layouts, creative elements, technical specifications, and comprehensive timelines are meticulously developed.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon"><i class="fas fa-project-diagram"></i></div>
+                        <h3>3. Flawless Execution & Oversight</h3>
+                        <p>Our experienced team manages all operational aspects, from vendor coordination to on-site direction, ensuring a smooth and impactful event delivery.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3>4. Evaluation & Optimization</h3>
+                        <p>Post-event, we conduct thorough analysis, gather feedback, and provide insights to quantify success and inform future strategic initiatives.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="testimonials-section">
+            <div class="container">
+                <h2>Voices of Our Partners</h2>
+                <p class="section-description">Hear directly from the industry leaders and organizations who have entrusted Vividly Events with their most critical gatherings.</p>
+                <div class="testimonial-grid">
+                    <div class="testimonial-item">
+                        <p>"Vividly Events elevated our annual summit beyond anything we'd imagined. Their meticulous planning and execution were simply flawless, leading to unparalleled attendee engagement."</p>
+                        <h4>— Emily Roberts, VP Marketing, Global Innovations Inc.</h4>
+                    </div>
+                    <div class="testimonial-item">
+                        <p>"The team at Vividly Events managed our complex product launch with incredible professionalism. Their creative solutions and calm under pressure ensured a resounding success that surpassed all KPIs."</p>
+                        <h4>— David Lee, Chief Brand Officer, Apex Solutions</h4>
+                    </div>
+                    <div class="testimonial-item">
+                        <p>"For our investor relations event, Vividly Events delivered an experience that was both sophisticated and strategically impactful. Their attention to every minute detail was truly remarkable."</p>
+                        <h4>— Sarah Jenson, Head of Investor Relations, Quantum Holdings</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="clients" class="clients-section">
+            <div class="container">
+                <h2>Our Valued Partners</h2>
+                <p class="section-description">We are proud to collaborate with a diverse portfolio of industry-leading companies, delivering consistent excellence for every partnership.</p>
+                <div class="logo-carousel-container">
+                    <div class="logo-carousel">
+                        <div class="client-logos-track">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/2/22/Geetha_Arts.jpg" alt="GA2 PICTURES">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Star_maa_logo_2023.png" alt="STAR MAA">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/3/3a/Bigg_Boss_Tamil_2.jpg" alt="BIG BOSS">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/ANR%27s_Annapurna_Studios_Logo.png" alt="ANNAPURNA STUDIOS">
+                            <img src="https://res.cloudinary.com/doqvgtd5s/image/upload/v1757517187/Adobe_Express_-_file_1_f7ankc.png" alt="VIVIDLYEVENTS">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1200px-Google_2015_logo.svg.png  " alt="GOOGLE-LOGO">
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col footer-branding">
+                    <h3 class="footer-logo">VIVIDLYEVENTS</h3>
+                    <p>Orchestrating unparalleled corporate events, product launches, and exclusive galas with precision and creative distinction.</p>
+                    <p>&copy; 2025 Vividly Events. All Rights Reserved.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Navigation</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Our Services</a></li>
+                        <li><a href="#portfolio">Our Portfolio</a></li>
+                        <li><a href="#process">Our Process</a></li>
+                        <li><a href="#testimonials">Client Testimonials</a></li>
+                        <li><a href="#clients">Our Partners</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect With Us</h4>
+                    <p>Vividly Events HQ<br>MALLA REDDY UNIVERSITY, MAISAMMA GUDA<br>HYDERABAD, 507001</p>
+                    <p><strong>Phone:</strong> +91 9391507369<br><strong>Email:</strong> info@truvgo.me</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn"><i class="comming-soon.html"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="comming-soon.html"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="comming-soon.html"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="comming-soon.html"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="comming-soon.html"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="comming-soon.html"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>
