@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vividly Events | Dashboard</title>
+    <link rel="stylesheet" href="data.css">
+    <link rel="stylesheet" href="dash.css">
+    <link href="https://fonts.googleapis.com/css2?family=Arial:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <span class="vividly">VIVIDLY</span><span class="events">EVENTS</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#portfolio">Portfolio</a></li>
+                <li><a href="photo.html">Gallery</a></li>
+                <li><a href="index.html#clients">Clients</a></li>
+                <li><a href="register.html">register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="dashboard-section">
+            <div class="container">
+                <h2>Event Registration Dashboard</h2>
+                <p class="section-description">Manage and view all event registrations. You can search by Event ID or see a list of all your submissions.</p>
+
+                <div class="dashboard-content">
+                    <div class="search-section">
+                        <h3>Check Registration Status</h3>
+                        <div class="search-form">
+                            <input type="text" id="searchInput" placeholder="Enter Event ID...">
+                            <button id="searchButton" class="cta-button">Search</button>
+                        </div>
+                        <div id="statusResult" class="status-result"></div>
+                    </div>
+
+                    <div class="registrations-list">
+                        <h3>All Your Registrations</h3>
+                        <table id="registrationsTable">
+                            <thead>
+                                <tr>
+                                    <th>Event ID</th>
+                                    <th>Event Name</th>
+                                    <th>Full Name</th>
+                                    <th>Date & Time</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Registration data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col footer-branding">
+                    <h3 class="footer-logo">VIVIDLYEVENTS</h3>
+                    <p>Delivering exceptional events with precision and passion. </p>
+                    <p>&copy; 2025 Vividly Events. All Rights Reserved.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#services">Our Services</a></li>
+                        <li><a href="index.html#portfolio">Portfolio</a></li>
+                        <li><a href="photo.html">Gallery</a></li>
+                        <li><a href="index.html#testimonials">Testimonials</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+        import { getFirestore, collection, query, where, getDocs, updateDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCGtRmoR3g0L-PwP3KwIJ7b9l7-dSvXrZk",
+            authDomain: "vividy-1fec0.firebaseapp.com",
+            projectId: "vividy-1fec0",
+            storageBucket: "vividy-1fec0.firebasestorage.app",
+            messagingSenderId: "696004886445",
+            appId: "1:696004886445:web:5fa6290fe574288d326b24",
+            measurementId: "G-S1GJ09L8QV"
+        };
+        const __app_id = "vividy-1fec0";
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                console.log("User is authenticated:", user.uid);
+                loadAllRegistrations(user.uid);
+            } else {
+                try {
+                    await signInAnonymously(auth);
+                } catch (error) {
+                    console.error("Error signing in anonymously:", error);
+                }
+            }
+        });
+
+        // Search by Event ID
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const statusResult = document.getElementById('statusResult');
+
+        searchButton.addEventListener('click', async () => {
+            const eventId = searchInput.value.trim();
+            if (!eventId) {
+                statusResult.textContent = "Please enter a valid Event ID.";
+                statusResult.style.color = "#dc2626";
+                return;
+            }
+
+            const userId = auth.currentUser ? auth.currentUser.uid : "anonymous";
+            const eventRef = collection(db, `/artifacts/${__app_id}/users/${userId}/events`);
+            const q = query(eventRef, where("eventId", "==", eventId));
+
+            try {
+                const querySnapshot = await getDocs(q);
+                if (querySnapshot.empty) {
+                    statusResult.textContent = `Event ID '${eventId}' not found.`;
+                    statusResult.style.color = "#dc2626";
+                } else {
+                    const docData = querySnapshot.docs[0].data();
+                    statusResult.innerHTML = `
+                        <strong>Event ID:</strong> ${docData.eventId}<br>
+                        <strong>Event Name:</strong> ${docData.eventSelect}<br>
+                        <strong>Full Name:</strong> ${docData.fullName}<br>
+                        <strong>Date & Time:</strong> ${docData.eventDate} at ${docData.eventTime}<br>
+                        <strong>Status:</strong> <span class="status-${docData.status.toLowerCase()}">${docData.status}</span>
+                    `;
+                    statusResult.style.color = "initial"; // Reset color
+                }
+            } catch (error) {
+                console.error("Error searching for document: ", error);
+                statusResult.textContent = "Error searching. Please try again later.";
+                statusResult.style.color = "#dc2626";
+            }
+        });
+
+        // Load all registrations for the current user
+        async function loadAllRegistrations(userId) {
+            const tableBody = document.querySelector('#registrationsTable tbody');
+            const eventRef = collection(db, `/artifacts/${__app_id}/users/${userId}/events`);
+            
+            onSnapshot(eventRef, (querySnapshot) => {
+                tableBody.innerHTML = '';
+                if (querySnapshot.empty) {
+                    tableBody.innerHTML = '<tr><td colspan="6">No registrations found.</td></tr>';
+                    return;
+                }
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${data.eventId}</td>
+                        <td>${data.eventSelect}</td>
+                        <td>${data.fullName}</td>
+                        <td>${data.eventDate} at ${data.eventTime}</td>
+                        <td><span class="status-${data.status.toLowerCase()}">${data.status}</span></td>
+                        <td class="action-buttons">
+                            <button class="accept-btn" data-id="${doc.id}" data-status="accepted">Accept</button>
+                            <button class="reject-btn" data-id="${doc.id}" data-status="rejected">Reject</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+
+                document.querySelectorAll('.accept-btn').forEach(button => {
+                    button.addEventListener('click', () => updateStatus(button.dataset.id, 'accepted'));
+                });
+                document.querySelectorAll('.reject-btn').forEach(button => {
+                    button.addEventListener('click', () => updateStatus(button.dataset.id, 'rejected'));
+                });
+            });
+        }
+
+        // Update registration status
+        async function updateStatus(docId, newStatus) {
+            const userId = auth.currentUser.uid;
+            const docRef = doc(db, `/artifacts/${__app_id}/users/${userId}/events`, docId);
+            try {
+                await updateDoc(docRef, { status: newStatus });
+                console.log("Document status updated successfully!");
+            } catch (error) {
+                console.error("Error updating document: ", error);
+            }
+        }
+    </script>
+</body>
+</html>
