@@ -1,313 +1,431 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Health Service Bot</title>
-  <style>
-    :root {
-      --desktop-bg: #f3f8fd;
-      --desktop-header-bg: #0866d6;
-      --desktop-msg-bot-bg: #e1f4e9;
-      --desktop-msg-user-bg: #507dba;
-      --desktop-msg-user-color: #fff;
-      --tablet-bg: #fff7ee;
-      --tablet-header-bg: #32ad72;
-      --tablet-msg-bot-bg: #ebfaf5;
-      --tablet-msg-user-bg: #32ad72;
-      --tablet-msg-user-color: #fff;
-      --mobile-bg: #f9efe7;
-      --mobile-header-bg: #ea4646;
-      --mobile-msg-bot-bg: #f7ebea;
-      --mobile-msg-user-bg: #ea4646;
-      --mobile-msg-user-color: #fff;
-      --radius: 18px;
-      --font-main: 'Segoe UI', Arial, sans-serif;
-    }
-    html, body {
-      padding: 0;
-      margin: 0;
-      width: 100%;
-      min-height: 100vh;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Health Service Bot - Gemini AI</title>
+<style>
+  /* Root variables for colors and spacing */
+  :root {
+    --desktop-bg: #eef7fc;
+    --desktop-primary: #1e90ff;
+    --desktop-secondary: #56b2ea;
+    --desktop-user-bg: #3a7bd5;
+    --desktop-bot-bg: #daf0fc;
+    --desktop-user-color: #ffffff;
+    --desktop-bot-color: #034475;
+    --desktop-tip-bg: #d7eafd;
+    --desktop-tip-border: #1e90ff;
+
+    --mobile-bg: #f9f9f9;
+    --mobile-primary: #ea5c5c;
+    --mobile-user-bg: #ea5c5c;
+    --mobile-bot-bg: #fbeaea;
+    --mobile-user-color: #fff;
+    --mobile-bot-color: #700000;
+
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --radius: 16px;
+  }
+
+  /* Global */
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    font-family: var(--font-family);
+    background: var(--desktop-bg);
+  }
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 1rem;
+    min-height: 100vh;
+  }
+
+  /* Container */
+  .container {
+    display: flex;
+    max-width: 1000px;
+    width: 100%;
+    height: 80vh;
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 26px rgba(0,0,0,0.07);
+    overflow: hidden;
+  }
+
+  /* Sidebar with health tips */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    background: var(--desktop-tip-bg);
+    border-right: 2px solid var(--desktop-tip-border);
+    padding: 1rem 1.5rem;
+    width: 280px;
+    box-sizing: border-box;
+  }
+  .sidebar h2 {
+    color: var(--desktop-primary);
+    margin: 0 0 1rem 0;
+    letter-spacing: 1.3px;
+    font-weight: 700;
+  }
+  .tip {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    color: #164360;
+    box-shadow: 0 2px 4px rgba(91, 156, 235, 0.35);
+  }
+
+  /* Chat Area */
+  .chat-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .header {
+    background: var(--desktop-primary);
+    padding: 1.4rem 1.8rem;
+    color: white;
+    font-size: 1.7rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    box-shadow: 0 2px 10px rgba(29, 87, 171, 0.25);
+  }
+  .header-icon {
+    font-size: 2.3rem;
+  }
+  .chat-area {
+    flex: 1;
+    padding: 1.6rem 2rem;
+    overflow-y: auto;
+    background: #f6faff;
+  }
+
+  /* Chat messages */
+  .msg {
+    max-width: 75%;
+    margin-bottom: 1rem;
+    padding: 1rem 1.4rem;
+    border-radius: var(--radius);
+    font-size: 1.1rem;
+    line-height: 1.5;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+    word-wrap: break-word;
+    position: relative;
+    white-space: pre-wrap;
+  }
+  .from-user {
+    background: var(--desktop-user-bg);
+    color: var(--desktop-user-color);
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+  }
+  .from-user::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: -10px;
+    border-width: 10px 0 0 10px;
+    border-style: solid;
+    border-color: var(--desktop-user-bg) transparent;
+  }
+  .from-bot {
+    background: var(--desktop-bot-bg);
+    color: var(--desktop-bot-color);
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+  }
+  .from-bot::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -10px;
+    border-width: 10px 10px 0 0;
+    border-style: solid;
+    border-color: var(--desktop-bot-bg) transparent;
+  }
+
+  /* Avatars next to messages */
+  .msg-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+  }
+  .msg-container.user {
+    justify-content: flex-end;
+  }
+  .msg-container.bot {
+    justify-content: flex-start;
+  }
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #1e90ff;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    user-select: none;
+  }
+  .avatar.bot {
+    background-color: #039be5;
+  }
+
+  /* Input area */
+  .input-area {
+    display: flex;
+    padding: 15px 20px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
+    background: #fff;
+  }
+  .input-area input {
+    flex-grow: 1;
+    font-size: 1.1rem;
+    padding: 12px 16px;
+    border-radius: 30px;
+    border: 2px solid var(--desktop-secondary);
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .input-area input:focus {
+    border-color: var(--desktop-primary);
+  }
+  .input-area button {
+    margin-left: 15px;
+    background: var(--desktop-primary);
+    color: white;
+    font-weight: 700;
+    border: none;
+    border-radius: 30px;
+    padding: 0 25px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s;
+  }
+  .input-area button:hover, .input-area button:focus {
+    background: var(--desktop-secondary);
+  }
+
+  /* Scrollbar Styling */
+  .chat-area::-webkit-scrollbar {
+    width: 9px;
+  }
+  .chat-area::-webkit-scrollbar-thumb {
+    background-color: #80b6f8;
+    border-radius: 10px;
+  }
+  .chat-area::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* ---------------- Mobile styles only ---------------- */
+  @media (max-width: 611px) {
     body {
-      background: var(--desktop-bg);
-      font-family: var(--font-main);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      transition: background 0.2s;
+      background: var(--mobile-bg);
+      padding: 0;
+      justify-content: flex-start;
     }
     .container {
-      background: #fff;
-      border-radius: var(--radius);
-      box-shadow: 0 8px 32px #0d6ed615;
-      max-width: 480px;
-      width: 98vw;
-      padding: 0;
-      overflow: hidden;
-      display: flex;
       flex-direction: column;
-      height: 670px;
+      max-width: 100vw;
+      height: 100vh;
+      width: 100%;
+      border-radius: 0;
+      box-shadow: none;
     }
     .header {
-      background: var(--desktop-header-bg);
-      color: #fff;
-      font-size: 1.6rem;
-      padding: 1.6rem 1.8rem;
-      font-weight: 600;
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 0.8em;
-      letter-spacing: 1.6px;
+      background: var(--mobile-primary);
+      font-size: 1.3rem;
+      padding: 1rem;
+      font-weight: 700;
+      box-shadow: 0 2px 5px rgba(234, 92, 92, 0.6);
     }
     .header-icon {
-      font-size: 2.1em;
-      margin-right: 0.3em;
-      vertical-align: middle;
+      font-size: 1.8rem;
+    }
+    .sidebar {
+      display: none;
+    }
+    .chat-wrapper {
+      flex: 1;
+      height: calc(100vh - 110px);
     }
     .chat-area {
-      flex: 1;
+      background: #fff1f1;
+      padding: 1rem 1rem 0.5rem 1rem;
+      height: 100%;
       overflow-y: auto;
-      padding: 1.5rem 2rem;
-      background: inherit;
-      display: flex;
-      flex-direction: column;
-      gap: 1.16em;
+    }
+    .msg-container {
+      justify-content: flex-start !important;
+      margin-bottom: 10px;
     }
     .msg {
       max-width: 85%;
-      padding: 0.75rem 1.35rem;
-      border-radius: var(--radius) var(--radius) var(--radius) 0.5em;
-      font-size: 1.07rem;
-      line-height: 1.48;
-      margin-bottom: 4px;
-      word-break: break-word;
-      border: 1.5px solid #c5e2f0;
-      display: inline-block;
-      box-sizing: border-box;
-      position: relative;
-    }
-    .from-bot {
-      align-self: flex-start;
-      background: var(--desktop-msg-bot-bg);
-      border-color: #8fd2cd;
-      color: #155348;
+      font-size: 1rem;
+      border-radius: 12px;
+      box-shadow: none;
+      word-wrap: break-word;
+      white-space: normal;
     }
     .from-user {
+      background: var(--mobile-user-bg);
+      color: var(--mobile-user-color);
       align-self: flex-end;
-      background: var(--desktop-msg-user-bg);
-      color: var(--desktop-msg-user-color);
-      border-color: #39809a;
-      border-radius: var(--radius) var(--radius) 0.5em var(--radius);
+      border-radius: 12px;
     }
-    .inputs {
-      display: flex;
-      padding: 1.2rem 2rem;
-      background: #f2f7fa;
-      border-top: 2px solid #e0e9f9;
-      gap: 0.8em;
-      align-items: center;
+    .from-user::after {
+      display: none;
     }
-    .inputs input {
-      flex: 1;
-      font-size: 1.08rem;
-      padding: 0.75em 1em;
-      border-radius: var(--radius);
-      border: 1.1px solid #c9d9e8;
-      outline: none;
-      background: #f6fbfd;
-      transition: border 0.2s;
+    .from-bot {
+      background: var(--mobile-bot-bg);
+      color: var(--mobile-bot-color);
+      align-self: flex-start;
+      border-radius: 12px;
     }
-    .inputs button {
-      background: #0866d6;
-      color: #fff;
+    .from-bot::after {
+      display: none;
+    }
+    /* No inline avatars on mobile for space */
+    .avatar {
+      display: none;
+    }
+    .input-area {
+      padding: 10px 15px;
+      box-shadow: 0 -3px 10px rgba(234, 92, 92, 0.6);
+      background: var(--mobile-primary);
+    }
+    .input-area input {
+      border-radius: 25px;
       border: none;
-      border-radius: var(--radius);
-      padding: 0 1.4em;
-      font-size: 1.18rem;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background 0.2s;
+      padding: 14px 16px;
+      font-size: 1.05rem;
+      background: white;
+      flex-grow: 1;
     }
-    .inputs button:hover, .inputs button:focus {
-      background: #074c97;
+    .input-area button {
+      background: var(--mobile-primary);
+      padding: 12px 18px;
+      border-radius: 25px;
+      font-size: 1.05rem;
+      width: auto;
+      margin-left: 8px;
     }
-    /* Health tip and FAQs */
-    .tip-box {
-      background: #e1ebf7;
-      border-radius: 8px;
-      padding: 0.85em 1em;
-      font-size: 1rem;
-      color: #008c39;
-      margin-bottom: 3px;
-      border-left: 4px solid #0866d6;
-    }
-
-    /* Tablet (iPad/Android) - custom look */
-    @media (max-width:1024px) and (min-width:612px) {
-      body { background: var(--tablet-bg);}
-      .container { height: 80vh; max-width: 700px;}
-      .header {
-        background: var(--tablet-header-bg);
-        font-size: 1.35rem;
-        padding: 1.1rem 1.2rem;
-      }
-      .header-icon { font-size: 2em;}
-      .chat-area { padding: 1rem 1.1rem;}
-      .msg {
-        font-size: 1.01rem;
-        border-radius: var(--radius);
-        border-color: #32ad72;
-        box-shadow: 0 2px 6px #c0ffe770;
-      }
-      .from-bot {
-        background: var(--tablet-msg-bot-bg);
-        border-color: #32ad72;
-        color: #227761;
-      }
-      .from-user {
-        background: var(--tablet-msg-user-bg);
-        color: var(--tablet-msg-user-color);
-        border-color: #32ad72;
-      }
-      .inputs { padding: 0.8rem 1.1rem;}
-      .inputs button { background: #32ad72; }
-      .inputs button:hover, .inputs button:focus { background: #277e59;}
-      .tip-box { border-left-color: #32ad72; }
-    }
-
-    /* Mobile - keep prior style */
-    @media (max-width:611px) {
-      body { background: var(--mobile-bg);}
-      .container { height: 99vh; max-width: 100vw; border-radius: 0;}
-      .header {
-        font-size: 1.05rem;
-        background: var(--mobile-header-bg);
-        padding: 1rem 0.5rem;
-      }
-      .header-icon { font-size: 1.7em;}
-      .chat-area { padding: 0.6rem 0.5rem;}
-      .msg {
-        font-size: 0.97rem;
-        border-radius: var(--radius);
-        border-color: #ea4646;
-      }
-      .from-bot {
-        background: var(--mobile-msg-bot-bg);
-        border-color: #ea4646;
-        color: #8c2626;
-      }
-      .from-user {
-        background: var(--mobile-msg-user-bg);
-        color: var(--mobile-msg-user-color);
-        border-color: #ea4646;
-      }
-      .inputs { padding: 0.5rem 0.35rem;}
-      .inputs button { background: #ea4646; }
-      .inputs button:hover, .inputs button:focus { background: #a72828;}
-      .tip-box { border-left-color: #ea4646; }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="header" id="header">
-      <span class="header-icon">🩺</span>
-      <span></span>
+  <div class="container" role="main" aria-label="Health service chatbot">
+    <aside class="sidebar" aria-label="Health Tips">
+      <h2>Health Tips</h2>
+      <div class="tip">💧 Stay hydrated by drinking plenty of water daily.</div>
+      <div class="tip">🍎 Eat a balanced, nutritious diet rich in fruits and vegetables.</div>
+      <div class="tip">🛌 Ensure 7-8 hours of restful sleep every night.</div>
+      <div class="tip">🏃‍♂️ Engage in regular physical activity for good health.</div>
+      <div class="tip">🧼 Wash hands frequently to prevent infections.</div>
+    </aside>
+    <div class="chat-wrapper">
+      <header class="header" role="banner">
+        <span class="header-icon" aria-hidden="true">🩺</span>
+        <span>Health Service Bot</span>
+      </header>
+      <section class="chat-area" id="chat" role="log" aria-live="polite"></section>
+      <form class="input-area" id="inputForm" autocomplete="off" role="form" aria-label="Chat input form">
+        <input id="userInput" type="text" placeholder="Ask about medical info or services..." required aria-label="User message input" />
+        <button type="submit" aria-label="Send message">Send</button>
+      </form>
     </div>
-    <div class="chat-area" id="chat"></div>
-    <form class="inputs" id="inputForm" autocomplete="off">
-      <input id="userInput" type="text" placeholder="Ask a health question or about medical services..." required />
-      <button type="submit">Send</button>
-    </form>
   </div>
+
   <script>
-    // Fetch config JSON (title, greeting)
-    let config = {
-      botName: "Health Service Bot",
-      greeting: "👋 Welcome! How may I help with your medical information today?"
-    };
+    const API_KEY = "AIzaSyDMSN3O-40lFrwhYlW_dVyLvsQPP6Mto10";
+    const API_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
-    fetch('config.json')
-      .then(r => r.ok ? r.json() : config)
-      .then(j => {
-        config = j;
-        document.querySelector('.header span:nth-child(2)').textContent = config.botName;
-        addBotMsg(config.greeting);
-        showHealthTip();
-      })
-      .catch(() => {
-        document.querySelector('.header span:nth-child(2)').textContent = config.botName;
-        addBotMsg(config.greeting);
-        showHealthTip();
-      });
+    const chat = document.getElementById("chat");
+    const inputForm = document.getElementById("inputForm");
+    const userInput = document.getElementById("userInput");
 
-    // UI elements
-    const chat = document.getElementById('chat');
-    const inputForm = document.getElementById('inputForm');
-    const userInput = document.getElementById('userInput');
-
-    // Messages
     function addMsg(text, cls) {
-      const msg = document.createElement('div');
-      msg.className = 'msg ' + cls;
+      const container = document.createElement("div");
+      container.className = "msg-container " + (cls === "from-user" ? "user" : "bot");
+      const avatar = document.createElement("div");
+      avatar.className = "avatar " + (cls === "from-user" ? "user" : "bot");
+      avatar.textContent = cls === "from-user" ? "U" : "H"; // U: User, H: Health Bot
+      const msg = document.createElement("div");
+      msg.className = "msg " + cls;
       msg.textContent = text;
-      chat.appendChild(msg);
+
+      container.appendChild(cls === "from-user" ? msg : avatar);
+      container.appendChild(cls === "from-user" ? avatar : msg);
+      chat.appendChild(container);
       chat.scrollTop = chat.scrollHeight;
     }
-    function addBotMsg(text) { addMsg(text, 'from-bot'); }
-    function addUserMsg(text) { addMsg(text, 'from-user'); }
-
-    // Health quick tip, random on load
-    function showHealthTip() {
-      const tips = [
-        "💧 Stay hydrated: Drink at least 8 cups of water daily.",
-        "🧼 Wash your hands before and after meals.",
-        "🍏 Eat a balanced diet for better immunity.",
-        "🏃‍♂️ Regular exercise can help manage stress.",
-        "🩺 Check blood pressure and sugar regularly if advised."
-      ];
-      const tip = tips[Math.floor(Math.random() * tips.length)];
-      const tipBox = document.createElement('div');
-      tipBox.className = 'tip-box';
-      tipBox.textContent = tip;
-      chat.appendChild(tipBox);
+    function addBotMsg(text) {
+      addMsg(text, "from-bot");
+    }
+    function addUserMsg(text) {
+      addMsg(text, "from-user");
     }
 
-    // Demo bot logic for health topics (can be replaced with AI/API)
-    function getBotReply(userMsg) {
-      userMsg = userMsg.toLowerCase();
-      if (/covid|corona|virus/.test(userMsg)) return "To know more about COVID-19, check official guidelines or ask about symptoms, tests, or prevention.";
-      if (/appointment|doctor|clinic/.test(userMsg)) return "You can schedule appointments by contacting your clinic through our online form or by phone.";
-      if (/emergency/.test(userMsg)) return "If this is a medical emergency, please call your country's emergency number immediately.";
-      if (/diet|food|nutrition/.test(userMsg)) return "A balanced diet helps maintain good health. Would you like diet tips for a specific condition or age group?";
-      if (/medicine|drug|prescription/.test(userMsg)) return "Prescription medicines should be taken as advised by your healthcare provider. If you have doubts, please consult a doctor.";
-      if (/health tip/.test(userMsg)) return "Here's a health tip: Regular sleep improves immunity and mental health.";
-      if (/location|hospital|address/.test(userMsg)) return "You can find nearby hospitals by entering your area name or postcode.";
-      if (/contact|phone|email/.test(userMsg)) return "For contact details, please visit our official website or ask for specific department numbers.";
-      if (/help|information|service/.test(userMsg)) return "I'm here to help. Ask any health-related question or about our medical services!";
-      if (/symptom|pain|fever|cough/.test(userMsg)) return "Describe your symptoms. I'll guide you to credible resources and when to seek medical help.";
-      if (/thank|bye/.test(userMsg)) return "Take care! Reach out anytime for medical information.";
-      return "For medical-specific details, please ask about appointments, symptoms, diet, or hospital locations.";
+    async function queryGeminiChatAPI(message) {
+      try {
+        const body = {
+          contents: [
+            {
+              parts: [
+                {
+                  text: message
+                }
+              ]
+            }
+          ]
+        };
+        const response = await fetch(API_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-goog-api-key": API_KEY
+          },
+          body: JSON.stringify(body)
+        });
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error("API error:", errorText);
+          throw new Error(`API error: ${response.status}`);
+        }
+        const data = await response.json();
+        return data?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I did not get that.";
+      } catch (error) {
+        console.error("Error querying Gemini API:", error);
+        return "Sorry, there was an error processing your request.";
+      }
     }
 
-    inputForm.onsubmit = e => {
+    inputForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const text = userInput.value.trim();
       if (!text) return;
       addUserMsg(text);
-      userInput.value = '';
-      setTimeout(() => addBotMsg(getBotReply(text)), 500);
-    };
+      userInput.value = "";
+      addBotMsg("Typing...");
 
-    // Quick Enter key submit
-    userInput.addEventListener("keydown", function(e) {
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        inputForm.requestSubmit();
+      const typingMsg = document.querySelector(".from-bot:last-child .msg");
+      const botReply = await queryGeminiChatAPI(text);
+
+      if (typingMsg && typingMsg.textContent === "Typing...") {
+        typingMsg.textContent = botReply;
+      } else {
+        addBotMsg(botReply);
       }
     });
   </script>
